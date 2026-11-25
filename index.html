@@ -1,0 +1,619 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia Fácil: Segurança Digital</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="estilo.css">
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 150px;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .cabecalho-fixo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: #ffffff !important;
+        }
+
+        .menu-fixo {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: #ffffff !important;
+        }
+
+        .envoltorio-aplicativo {
+            padding-top: 120px;
+            padding-bottom: 100px;
+        }
+
+        h1, h2, h3, p, span, a, li, strong {
+            transition: font-size 0.3s ease;
+        }
+
+        /* MODAL */
+        .modal-fundo {
+            display: none;
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.65);
+            z-index: 2000;
+        }
+
+        .modal-conteudo {
+            background: white;
+            color: #0F172A;
+            width: 90%;
+            max-width: 500px;
+            padding: 25px;
+            border-radius: 18px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .botao-fechar {
+            position: absolute;
+            top: 12px;
+            right: 15px;
+            border: none;
+            background: transparent;
+            color: #0F172A;
+            font-size: 25px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* ALTO CONTRASTE */
+        body.alto-contraste,
+        body.alto-contraste .envoltorio-aplicativo,
+        body.alto-contraste main,
+        body.alto-contraste section,
+        body.alto-contraste article,
+        body.alto-contraste header,
+        body.alto-contraste nav,
+        body.alto-contraste .cartao-acessivel,
+        body.alto-contraste .selo-perigo {
+            background: #000000 !important;
+            color: #ffffff !important;
+            border-color: #ffffff !important;
+        }
+
+        body.alto-contraste * {
+            color: #ffffff !important;
+            border-color: #ffffff !important;
+        }
+
+        body.alto-contraste button,
+        body.alto-contraste label,
+        body.alto-contraste a {
+            background-color: #000000 !important;
+            color: #ffffff !important;
+        }
+
+        body.alto-contraste .botao-principal {
+            background-color: #000000 !important;
+            color: #ffffff !important;
+            border: 2px solid #ffffff !important;
+        }
+
+        body.alto-contraste .modal-conteudo {
+            background: #000000 !important;
+            color: #ffffff !important;
+            border: 2px solid #ffffff;
+        }
+
+        @media (max-width: 640px) {
+            .envoltorio-aplicativo {
+                padding-top: 155px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <input type="checkbox" id="alternar-alto-contraste"
+        class="caixa-selecao-oculta"
+        aria-label="Ativar modo de alto contraste">
+
+    <div class="envoltorio-aplicativo">
+
+        <!-- CABEÇALHO -->
+        <header class="cabecalho-fixo border-b-2 shadow-md"
+            style="background-color: #ffffff; border-color: #d1d5db;">
+
+            <div class="max-w-4xl mx-auto px-4 py-3">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+
+                    <div class="flex items-center gap-3">
+                        <div class="p-2.5 rounded-xl bg-blue-700 text-white shrink-0">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/>
+                            </svg>
+                        </div>
+
+                        <div>
+                            <h1 class="font-extrabold texto-dinamico-grande leading-tight">Escudo Digital</h1>
+                            <p class="texto-dinamico-pequeno opacity-90">Dicas fáceis para navegar com segurança</p>
+                        </div>
+                    </div>
+
+                    <!-- ACESSIBILIDADE -->
+                    <div class="flex items-center gap-2 sm:gap-3">
+
+                        <button type="button"
+                            id="botao-texto-grande"
+                            aria-label="Aumentar tamanho das letras"
+                            aria-pressed="false"
+                            class="cursor-pointer flex items-center justify-center gap-2 px-4 py-3 rounded-xl border-2 font-bold texto-dinamico-pequeno"
+                            style="border-color: #d1d5db; background-color: white;">
+
+                            <span class="text-xl font-extrabold">A+</span>
+                            <span>Letra Maior</span>
+                        </button>
+
+                        <label for="alternar-alto-contraste"
+                            tabindex="0"
+                            role="button"
+                            class="cursor-pointer flex items-center justify-center gap-2 px-4 py-3 rounded-xl border-2 font-bold texto-dinamico-pequeno"
+                            style="border-color: #d1d5db;">
+
+                            <span>◐</span>
+                            <span>Alto Contraste</span>
+                        </label>
+
+                        <button type="button" id="btnLer"
+                            class="cursor-pointer flex items-center justify-center gap-2 px-4 py-3 rounded-xl border-2 font-bold texto-dinamico-pequeno"
+                            style="border-color: #2563eb; color: #1d4ed8; background-color: white;">
+                            🔊 Ler página
+                        </button>
+
+                        <button type="button" id="btnPausar"
+                            class="cursor-pointer flex items-center justify-center gap-2 px-4 py-3 rounded-xl border-2 font-bold texto-dinamico-pequeno"
+                            style="border-color: #d1d5db; background-color: white;">
+                            ⏸️ Pausar
+                        </button>
+
+                        <button type="button" id="btnParar"
+                            class="cursor-pointer flex items-center justify-center gap-2 px-4 py-3 rounded-xl border-2 font-bold texto-dinamico-pequeno"
+                            style="border-color: #d1d5db; background-color: white;">
+                            ⏹️ Parar
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTEÚDO PRINCIPAL -->
+        <main class="max-w-4xl mx-auto px-4 pt-6 space-y-10">
+
+            <!-- INÍCIO -->
+            <section id="inicio"
+                class="cartao-acessivel p-6 sm:p-10"
+                style="background: var(--fundo-cartao);"
+                aria-labelledby="titulo-boas-vindas">
+
+                <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+
+                    <div class="space-y-4 max-w-2xl">
+
+                        <span class="inline-block px-4 py-1.5 rounded-full text-sm font-extrabold bg-blue-100 text-blue-900">
+                            BEM-VINDO AO ESCUDO DIGITAL
+                        </span>
+
+                        <h2 id="titulo-boas-vindas" class="font-extrabold texto-dinamico-titulo leading-tight">
+                            Use a internet com tranquilidade e proteção
+                        </h2>
+
+                        <p class="texto-dinamico-base" style="color: var(--texto-secundario);">
+                            Aqui você encontra orientações simples para proteger seu dinheiro, seu WhatsApp e seus dados pessoais. Se estiver em dúvida ou precisar de socorro agora, toque no botão abaixo.
+                        </p>
+
+                        <div class="pt-2 flex flex-wrap gap-4">
+
+                            <a href="#ajuda-emergencia"
+                                class="botao-principal inline-flex items-center justify-center gap-3 px-7 py-4 rounded-2xl bg-red-700 hover:bg-red-800 text-white font-extrabold texto-dinamico-base shadow-lg">
+                                ⚠️ Preciso de Ajuda Agora
+                            </a>
+
+                            <button type="button"
+                                class="botao-ajuda px-6 py-4 rounded-2xl border-2 border-blue-700 text-blue-700 font-bold">
+                                Ajuda
+                            </button>
+
+                        </div>
+                    </div>
+
+                    <div class="hidden md:flex p-6 rounded-3xl bg-blue-100 text-blue-800 shrink-0">
+                        <svg class="w-24 h-24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/>
+                        </svg>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- DICAS -->
+            <section id="dicas" class="space-y-5">
+
+                <div class="space-y-1">
+                    <h2 class="font-extrabold texto-dinamico-extra-grande">Dicas Importantes</h2>
+                    <p class="texto-dinamico-base" style="color: var(--texto-secundario);">
+                        Três regras simples para o seu dia a dia:
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+
+                    <article class="cartao-acessivel p-6 flex flex-col justify-between space-y-4">
+                        <div class="space-y-3">
+                            <div class="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-900 flex items-center justify-center font-extrabold text-2xl">1</div>
+
+                            <h3 class="font-extrabold texto-dinamico-grande">Confirme antes de fazer Pix</h3>
+
+                            <p class="texto-dinamico-base" style="color: var(--texto-secundario);">
+                                Se um parente pedir dinheiro no WhatsApp dizendo que trocou de número, <strong>ligue para o número antigo</strong> dele antes de transferir qualquer valor.
+                            </p>
+                        </div>
+
+                        <span class="inline-block font-bold texto-dinamico-pequeno" style="color: var(--destaque-verde);">
+                            ✓ Sempre ouça a voz da pessoa
+                        </span>
+                    </article>
+
+                    <article class="cartao-acessivel p-6 flex flex-col justify-between space-y-4">
+                        <div class="space-y-3">
+                            <div class="w-14 h-14 rounded-2xl bg-blue-100 text-blue-900 flex items-center justify-center font-extrabold text-2xl">2</div>
+
+                            <h3 class="font-extrabold texto-dinamico-grande">Proteja suas senhas e códigos</h3>
+
+                            <p class="texto-dinamico-base" style="color: var(--texto-secundario);">
+                                Nunca informe senhas do banco ou códigos de 6 números recebidos por mensagem (SMS) para ninguém por telefone.
+                            </p>
+                        </div>
+
+                        <span class="inline-block font-bold texto-dinamico-pequeno" style="color: var(--destaque-azul);">
+                            ✓ Bancos não pedem senha
+                        </span>
+                    </article>
+
+                    <article class="cartao-acessivel p-6 flex flex-col justify-between space-y-4">
+                        <div class="space-y-3">
+                            <div class="w-14 h-14 rounded-2xl bg-amber-100 text-amber-900 flex items-center justify-center font-extrabold text-2xl">3</div>
+
+                            <h3 class="font-extrabold texto-dinamico-grande">Não clique em links estranhos</h3>
+
+                            <p class="texto-dinamico-base" style="color: var(--texto-secundario);">
+                                Recebeu mensagem dizendo que ganhou um prêmio ou que seu CPF foi bloqueado? Não toque nas letras azuis. Apague a mensagem.
+                            </p>
+                        </div>
+
+                        <span class="inline-block font-bold texto-dinamico-pequeno" style="color: var(--destaque-ambar);">
+                            ✓ Na dúvida, apague
+                        </span>
+                    </article>
+
+                </div>
+            </section>
+
+            <!-- DIREITOS -->
+            <section id="direitos" class="cartao-acessivel p-6 sm:p-8 space-y-5">
+
+                <div class="flex items-center gap-3">
+                    <div class="p-3 rounded-xl bg-blue-100 text-blue-900 shrink-0">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0118 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/>
+                        </svg>
+                    </div>
+
+                    <h2 class="font-extrabold texto-dinamico-extra-grande">
+                        Nossos Direitos na Internet
+                    </h2>
+                </div>
+
+                <div class="space-y-4 texto-dinamico-base" style="color: var(--texto-secundario);">
+
+                    <p>
+                        Assim como nas ruas e nos bancos físicos, na internet você também é protegido pela lei. O <strong>Estatuto da Pessoa Idosa</strong>, o <strong>Código de Defesa do Consumidor</strong> e a <strong>Lei Geral de Proteção de Dados (LGPD)</strong> garantem a sua segurança e respeito.
+                    </p>
+
+                    <p>
+                        <strong>Você tem o direito à privacidade:</strong> nenhuma empresa pode usar o seu nome, CPF, telefone ou fotos sem a sua permissão clara. Você também tem o direito de pedir que seus dados sejam apagados de cadastros indesejados.
+                    </p>
+
+                    <p>
+                        <strong>Você tem o direito ao arrependimento em compras:</strong> se você comprar algo pela internet ou por telefone e se arrepender, a lei garante até <strong>7 dias corridos</strong> após receber o produto para devolver e receber todo o seu dinheiro de volta, sem precisar dar explicações.
+                    </p>
+
+                    <p>
+                        <strong>Proteção contra cobranças indevidas:</strong> bancos e lojas não podem fazer empréstimos consignados ou cobrar serviços que você não pediu e não assinou. Caso isso ocorra, você tem direito ao cancelamento imediato e à devolução do valor.
+                    </p>
+
+                </div>
+            </section>
+
+            <!-- GOLPES -->
+            <section id="golpes" class="cartao-acessivel p-6 sm:p-8 space-y-6">
+
+                <div class="space-y-2">
+                    <span class="inline-block px-3 py-1 rounded-full text-sm font-extrabold bg-red-100 text-red-900">
+                        SINAIS DE ALERTA
+                    </span>
+
+                    <h2 class="font-extrabold texto-dinamico-extra-grande">
+                        Como saber se estou caindo em um golpe?
+                    </h2>
+
+                    <p class="texto-dinamico-base" style="color: var(--texto-secundario);">
+                        Fique muito atento se perceber alguma destas atitudes suspeitas durante uma ligação ou mensagem:
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                    <div class="selo-perigo p-5 rounded-2xl bg-red-50 border-2 border-red-300 text-red-950 space-y-2">
+                        <h3 class="font-extrabold texto-dinamico-grande">⏱️ 1. Pressa e desespero</h3>
+                        <p class="texto-dinamico-pequeno">
+                            O golpista diz que você tem que pagar <strong>agora mesmo</strong>, senão sua conta será bloqueada ou um parente ficará em apuros. Eles fazem isso para você não ter tempo de pensar.
+                        </p>
+                    </div>
+
+                    <div class="selo-perigo p-5 rounded-2xl bg-red-50 border-2 border-red-300 text-red-950 space-y-2">
+                        <h3 class="font-extrabold texto-dinamico-grande">🤫 2. Pedido de segredo</h3>
+                        <p class="texto-dinamico-pequeno">
+                            A pessoa pede para você <strong>não contar para seus filhos ou familiares</strong> sobre a ligação ou sobre o pagamento que está fazendo. Quem quer ajudar nunca pede segredo.
+                        </p>
+                    </div>
+
+                    <div class="selo-perigo p-5 rounded-2xl bg-red-50 border-2 border-red-300 text-red-950 space-y-2">
+                        <h3 class="font-extrabold texto-dinamico-grande">🎁 3. Vantagem boa demais</h3>
+                        <p class="texto-dinamico-pequeno">
+                            Promessas de dinheiro fácil, prêmios que você não participou, aposentadoria dobrada ou produtos muito baratos que exigem um pagamento antecipado para "liberar".
+                        </p>
+                    </div>
+
+                    <div class="selo-perigo p-5 rounded-2xl bg-red-50 border-2 border-red-300 text-red-950 space-y-2">
+                        <h3 class="font-extrabold texto-dinamico-grande">💳 4. Motoboy ou Pix de "teste"</h3>
+                        <p class="texto-dinamico-pequeno">
+                            Ninguém do banco vai até a sua casa buscar cartão cortado, nem pede para você fazer uma transferência de teste para "cancelar uma compra suspeita".
+                        </p>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- AJUDA DE EMERGÊNCIA -->
+            <section id="ajuda-emergencia" class="cartao-acessivel p-6 sm:p-8 space-y-5 border-red-500">
+
+                <div class="flex items-center gap-3 text-red-700">
+                    <svg class="w-9 h-9 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/>
+                    </svg>
+
+                    <h2 class="font-extrabold texto-dinamico-extra-grande">
+                        Central de Ajuda Rápida
+                    </h2>
+                </div>
+
+                <p class="texto-dinamico-base" style="color: var(--texto-secundario);">
+                    Se você acha que caiu em um golpe ou está recebendo uma ligação suspeita agora:
+                </p>
+
+                <ol class="list-decimal pl-6 space-y-3 texto-dinamico-base font-medium">
+                    <li><strong>Desligue o telefone imediatamente</strong> e não responda mais mensagens.</li>
+                    <li><strong>Ligue para o seu banco</strong> usando o número que está escrito atrás do seu cartão.</li>
+                    <li><strong>Peça ajuda a um familiar</strong> ou ligue para os serviços oficiais abaixo:</li>
+                </ol>
+
+                <div class="pt-3 flex flex-col sm:flex-row gap-4">
+
+                    <a href="tel:190" class="botao-principal flex-1 text-center py-4 px-6 rounded-xl bg-red-700 hover:bg-red-800 text-white font-extrabold texto-dinamico-base shadow-md">
+                        📞 Ligar Polícia (190)
+                    </a>
+
+                    <a href="tel:181" class="botao-principal flex-1 text-center py-4 px-6 rounded-xl bg-blue-700 hover:bg-blue-800 text-white font-extrabold texto-dinamico-base shadow-md">
+                        📞 Disque Denúncia (181)
+                    </a>
+
+                </div>
+            </section>
+
+        </main>
+
+        <!-- MENU INFERIOR -->
+        <nav class="menu-fixo border-t-2 shadow-lg"
+            style="background-color: #ffffff; border-color: #d1d5db;"
+            aria-label="Menu de navegação das seções">
+
+            <div class="max-w-4xl mx-auto grid grid-cols-4 items-center py-2 px-1">
+
+                <a href="#inicio" class="flex flex-col items-center justify-center p-2 rounded-xl font-bold text-xs sm:text-sm text-center" style="color: var(--destaque-azul);">
+                    <span>⌂</span>
+                    <span>Início</span>
+                </a>
+
+                <a href="#dicas" class="flex flex-col items-center justify-center p-2 rounded-xl font-bold text-xs sm:text-sm text-center" style="color: var(--texto-principal);">
+                    <span>💡</span>
+                    <span>Dicas</span>
+                </a>
+
+                <a href="#direitos" class="flex flex-col items-center justify-center p-2 rounded-xl font-bold text-xs sm:text-sm text-center" style="color: var(--texto-principal);">
+                    <span>📖</span>
+                    <span>Direitos</span>
+                </a>
+
+                <a href="#golpes" class="flex flex-col items-center justify-center p-2 rounded-xl font-bold text-xs sm:text-sm text-center" style="color: var(--destaque-vermelho);">
+                    <span>⚠️</span>
+                    <span>Golpes</span>
+                </a>
+
+            </div>
+        </nav>
+
+    </div>
+
+    <!-- JANELA MODAL DE AJUDA -->
+    <div class="modal-fundo" role="dialog" aria-modal="true" aria-labelledby="titulo-modal">
+        <div class="modal-conteudo">
+
+            <button type="button" class="botao-fechar" aria-label="Fechar janela">
+                &times;
+            </button>
+
+            <h2 id="titulo-modal" class="text-2xl font-extrabold mb-4">
+                Como usar o Escudo Digital?
+            </h2>
+
+            <p class="mb-3">
+                Este site foi criado para ajudar você a navegar na internet com mais segurança.
+            </p>
+
+            <p class="mb-3">
+                Acesse a seção <strong>Dicas</strong> para aprender a se proteger de golpes.
+            </p>
+
+            <p class="mb-3">
+                Em <strong>Direitos</strong>, conheça seus direitos na internet.
+            </p>
+
+            <p>
+                Se precisar de ajuda, acesse a seção <strong>Central de Ajuda Rápida</strong>.
+            </p>
+
+        </div>
+    </div>
+
+    <!-- AUMENTAR TEXTO E ALTO CONTRASTE -->
+    <script>
+        const botaoAmais = document.getElementById("botao-texto-grande");
+
+        let aumentoTexto = 0;
+
+        const textos = document.querySelectorAll(
+            "h1, h2, h3, p, span, a, li, strong"
+        );
+
+        textos.forEach(elemento => {
+            elemento.dataset.tamanhoOriginal =
+                getComputedStyle(elemento).fontSize;
+        });
+
+        botaoAmais.addEventListener("click", function() {
+
+            aumentoTexto += 2;
+
+            if (aumentoTexto > 8) {
+                aumentoTexto = 0;
+            }
+
+            textos.forEach(elemento => {
+                const tamanhoOriginal =
+                    parseFloat(elemento.dataset.tamanhoOriginal);
+
+                elemento.style.fontSize =
+                    (tamanhoOriginal + aumentoTexto) + "px";
+            });
+
+            botaoAmais.setAttribute(
+                "aria-pressed",
+                aumentoTexto > 0 ? "true" : "false"
+            );
+        });
+
+        const botaoContraste =
+            document.getElementById("alternar-alto-contraste");
+
+        botaoContraste.addEventListener("change", function() {
+            document.body.classList.toggle(
+                "alto-contraste",
+                botaoContraste.checked
+            );
+        });
+
+        // LEITURA EM VOZ ALTA
+        const btnLer = document.getElementById("btnLer");
+        const btnPausar = document.getElementById("btnPausar");
+        const btnParar = document.getElementById("btnParar");
+
+        let leitura = null;
+
+        function obterTextoDaPagina() {
+            const conteudo = document.querySelector("main").cloneNode(true);
+
+            // Remove botões e elementos que não precisam ser lidos
+            conteudo.querySelectorAll("button, script").forEach(elemento => {
+                elemento.remove();
+            });
+
+            return conteudo.innerText;
+        }
+
+        btnLer.addEventListener("click", function() {
+            if (!("speechSynthesis" in window)) {
+                alert("Seu navegador não oferece suporte à leitura em voz alta.");
+                return;
+            }
+
+            // Evita que uma leitura anterior continue junto com a nova
+            window.speechSynthesis.cancel();
+
+            const texto = obterTextoDaPagina();
+            leitura = new SpeechSynthesisUtterance(texto);
+            leitura.lang = "pt-BR";
+            leitura.rate = 1;
+
+            leitura.onend = function() {
+                btnPausar.innerText = "⏸️ Pausar";
+            };
+
+            window.speechSynthesis.speak(leitura);
+        });
+
+        btnPausar.addEventListener("click", function() {
+            if (window.speechSynthesis.paused) {
+                window.speechSynthesis.resume();
+                btnPausar.innerText = "⏸️ Pausar";
+            } else if (window.speechSynthesis.speaking) {
+                window.speechSynthesis.pause();
+                btnPausar.innerText = "▶️ Continuar";
+            }
+        });
+
+        btnParar.addEventListener("click", function() {
+            window.speechSynthesis.cancel();
+            btnPausar.innerText = "⏸️ Pausar";
+        });
+    </script>
+
+    <!-- ARQUIVO JAVASCRIPT DO MODAL -->
+    <script src="script.js"></script>
+
+</body>
+</html>

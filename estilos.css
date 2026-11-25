@@ -1,0 +1,154 @@
+
+/* Configurações Base e Tipografia */
+:root {
+    --fundo-principal: #F8FAFC;
+    --fundo-cartao: #FFFFFF;
+    --texto-principal: #0F172A;
+    --texto-secundario: #334155;
+    --destaque-azul: #1D4ED8;
+    --destaque-azul-hover: #1E40AF;
+    --destaque-verde: #15803D;
+    --destaque-vermelho: #B91C1C;
+    --destaque-ambar: #B45309;
+    --cor-borda: #CBD5E1;
+    --escala-fonte: 1;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--fundo-principal);
+    color: var(--texto-principal);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Checkbox oculto */
+.caixa-selecao-oculta {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Modo Texto Grande */
+#alternar-texto-grande:checked ~ .envoltorio-aplicativo {
+    --escala-fonte: 1.25;
+}
+
+#alternar-texto-grande:checked ~ .envoltorio-aplicativo label[for="alternar-texto-grande"] {
+    background-color: #1D4ED8;
+    color: #FFFFFF;
+    border-color: #1E3A8A;
+}
+
+/* Modo Alto Contraste */
+#alternar-alto-contraste:checked ~ .envoltorio-aplicativo {
+    --fundo-principal: #000000;
+    --fundo-cartao: #121212;
+    --texto-principal: #FFFF00;
+    --texto-secundario: #FFFFFF;
+    --destaque-azul: #FFFF00;
+    --destaque-azul-hover: #EAB308;
+    --destaque-verde: #4ADE80;
+    --destaque-vermelho: #F87171;
+    --destaque-ambar: #FBBF24;
+    --cor-borda: #FFFF00;
+}
+
+#alternar-alto-contraste:checked ~ .envoltorio-aplicativo label[for="alternar-alto-contraste"] {
+    background-color: #FFFF00;
+    color: #000000;
+    border-color: #FFFFFF;
+}
+
+/* Botões e cartões no alto contraste */
+#alternar-alto-contraste:checked ~ .envoltorio-aplicativo .botao-principal {
+    background-color: #FFFF00 !important;
+    color: #000000 !important;
+    border: 3px solid #FFFFFF !important;
+}
+
+#alternar-alto-contraste:checked ~ .envoltorio-aplicativo .selo-seguro {
+    background-color: #000000 !important;
+    color: #4ADE80 !important;
+    border: 2px solid #4ADE80 !important;
+}
+
+#alternar-alto-contraste:checked ~ .envoltorio-aplicativo .selo-perigo {
+    background-color: #000000 !important;
+    color: #F87171 !important;
+    border: 2px solid #F87171 !important;
+}
+
+/* Container principal */
+.envoltorio-aplicativo {
+    background-color: var(--fundo-principal);
+    color: var(--texto-principal);
+    min-height: 100vh;
+}
+
+/* Tamanhos de texto */
+.texto-dinamico-pequeno {
+    font-size: calc(1rem * var(--escala-fonte));
+}
+
+.texto-dinamico-base {
+    font-size: calc(1.125rem * var(--escala-fonte));
+}
+
+.texto-dinamico-grande {
+    font-size: calc(1.35rem * var(--escala-fonte));
+}
+
+.texto-dinamico-extra-grande {
+    font-size: calc(1.75rem * var(--escala-fonte));
+}
+
+.texto-dinamico-titulo {
+    font-size: calc(2.25rem * var(--escala-fonte));
+}
+
+/* Cartões */
+.cartao-acessivel {
+    background-color: var(--fundo-cartao);
+    border: 2px solid var(--cor-borda);
+    border-radius: 1.25rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Foco para navegação por teclado */
+a:focus, button:focus, label:focus, summary:focus, input:focus + label {
+    outline: 4px solid #F59E0B;
+    outline-offset: 3px;
+}
+
+/* Elementos expansíveis */
+details > summary {
+    list-style: none;
+    cursor: pointer;
+}
+
+details > summary::-webkit-details-marker {
+    display: none;
+}
+
+details[open] .icone-seta {
+    transform: rotate(180deg);
+}
+
+.icone-seta {
+    transition: transform 0.25s ease;
+}
+
+/* Rolagem suave */
+html {
+    scroll-behavior: smooth;
+}
